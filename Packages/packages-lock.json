@@ -33,6 +33,14 @@
         "com.unity.textmeshpro": "2.1.4"
       }
     },
+    "com.microsoft.mixedreality.toolkit.tools": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.tools-2.8.2.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.microsoft.mixedreality.toolkit.foundation": "2.8.2"
+      }
+    },
     "com.microsoft.mrtk.core": {
       "version": "file:MixedReality/com.microsoft.mrtk.core-3.0.0-pre.12.tgz",
       "depth": 0,
