@@ -26,20 +26,17 @@ public class MuscleRelaxationScript : ExerciseBaseScript
     IEnumerator HoldFlex()
     {
         yield return new WaitForSeconds(3);
-        lerpTimeSet = false;
         muscleState = MuscleState.Relax;
-
+        startTime = Time.time;
     }
 
     IEnumerator Recharge()
     {
         yield return new WaitForSeconds(3);
-        lerpTimeSet = false;
         muscleState = MuscleState.Next;
-
+        startTime = Time.time;
     }
 
-    bool lerpTimeSet = false;
     float startTime;
     void FlexAndRelax()
     {
@@ -50,10 +47,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
                 rend.material.color = Color.Lerp(Color.white, Color.red, t);
 
             if (t >= 1)
-            {
-
                 StartCoroutine(HoldFlex());
-            }
         }
         if (muscleState == MuscleState.Relax)
         {
@@ -61,9 +55,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
                 rend.material.color = Color.Lerp(Color.red, Color.white, t);
 
             if (t >= 1)
-            {
                 StartCoroutine(Recharge());
-            }
         }
     }
     void StartFlex()
@@ -74,12 +66,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
         {
             muscle = (Muscle)values.GetValue(random.Next(values.Length));
             muscleState = MuscleState.Flex;
-            lerpTimeSet = false;
-        }
-        if(!lerpTimeSet)
-        {
             startTime = Time.time;
-            lerpTimeSet = true;
         }
         FlexAndRelax();
     }
