@@ -1,5 +1,10 @@
 fileFormatVersion: 2
-guid: cc7dc9209800690439fc95fab6f25e1c
+<<<<<<<< HEAD:Assets/Scenes/BreathingExerciseScene.unity.meta
+guid: ad654108fa0b2a34c9a1dd45eb24232e
+========
+guid: ac0f37e450019a14abb97b9e69b5f701
+folderAsset: yes
+>>>>>>>> UI/HUD:Assets/Icons.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
