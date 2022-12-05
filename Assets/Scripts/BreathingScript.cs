@@ -1,65 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class BreathingScript : ExerciseBaseScript
 {
-    public float inhaleDuration;
-    public float inhaleHoldDuration;
-    public float exhaleDuration;
-    public float exhaleHoldDuration;
-
-    public float maxScale = 2;
-    private Vector3 currentScale = Vector3.one;
-
-    public enum breathState
-    {
-        breathingIn,
-        holdingBreath,
-        breathingOut
-    }
-    public breathState state = breathState.breathingIn;
-    public float breathStateTimer;
-
-    public GameObject lungs;
+    public Animator animationController;
     public ParticleSystem airParticlesIn;
     public ParticleSystem airParticlesOut;
+    public float inhaleTransitionDuration;
+    public float inhaleHoldDuration;
+    public float exhaleTransitionDuration;
+    public float exhaleHoldDuration;
 
-    private void Update()
+    private float breathStateTimer = 0f;
+    private BreathState breathState = BreathState.InhaleTransition;
+
+    private enum BreathState
     {
-        UpdateBreathState();
+        InhaleTransition,
+        InhaleHold,
+        ExhaleTransition,
+        ExhaleHold
+    }
+
+    private void AnimateLungs(float transitionDuration, bool inhale)
+    {
+        float transition = breathStateTimer / transitionDuration;
+        if (!inhale)
+        {
+            transition = 1f - transition;
+        }
+        animationController.SetFloat("Expanded", transition);
     }
 
     void UpdateBreathState()
     {
-        switch (state)
-        {
-            case breathState.breathingIn:
-                Debug.Log("breathing in");
-                currentScale += new Vector3(0.01f, 0.01f, 0.01f);
-                if (currentScale.x > maxScale)
-                    state = breathState.holdingBreath;
-                lungs.transform.localScale = currentScale;
-                break;
-            case breathState.holdingBreath:
-                Debug.Log("holding breath");
-                breathStateTimer += Time.deltaTime;
-                if (breathStateTimer > 1)
-                    state = breathState.breathingOut;
-                break;
-            case breathState.breathingOut:
-                Debug.Log("breathing out");
-                currentScale -= new Vector3(0.01f, 0.01f, 0.01f);
-                if (currentScale.x <= 1)
-                    state = breathState.breathingIn;
-                lungs.transform.localScale = currentScale;
-                break;
+        breathStateTimer += Time.deltaTime;
 
+        switch (breathState)
+        {
+            case BreathState.InhaleTransition:
+                if (!airParticlesIn.isPlaying)
+                {
+                    airParticlesIn.Play();
+                }
+                AnimateLungs(inhaleTransitionDuration, true);
+                if(breathStateTimer >= inhaleTransitionDuration)
+                {
+                    breathStateTimer = 0f;
+                    breathState = BreathState.InhaleHold;
+                    airParticlesIn.Stop();
+                }
+                break;
+            case BreathState.InhaleHold:
+                if(breathStateTimer >= inhaleHoldDuration)
+                {
+                    breathStateTimer = 0f;
+                    breathState = BreathState.ExhaleTransition;
+                }
+                break;
+            case BreathState.ExhaleTransition:
+                if (!airParticlesOut.isPlaying)
+                {
+                    airParticlesOut.Play();
+                }
+                AnimateLungs(exhaleTransitionDuration, false);
+                if(breathStateTimer >= exhaleTransitionDuration)
+                {
+                    breathStateTimer = 0f;
+                    breathState = BreathState.ExhaleHold;
+                    airParticlesOut.Stop();
+                }
+                break;
+            case BreathState.ExhaleHold:
+                if (breathStateTimer >= exhaleHoldDuration)
+                {
+                    breathStateTimer = 0f;
+                    breathState = BreathState.InhaleTransition;
+                }
+                break;
         }
     }
 
-    void AnimateLungs()
+    private void Update()
     {
-        ;
+        UpdateBreathState();
     }
 }

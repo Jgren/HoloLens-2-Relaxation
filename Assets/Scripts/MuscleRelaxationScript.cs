@@ -8,77 +8,75 @@ using UnityEngine;
 public class MuscleRelaxationScript : ExerciseBaseScript
 {
     public List<GameObject> muscles;
-    
-    enum MuscleState
+    public float flexTranstitionDuration = 0.5f;
+    public float flexHoldDuration = 2f;
+    public float relaxTransitionDuration = 0.5f;
+    public float relaxHoldDuration = 2f;
+
+    private float muscleStateTimer = 0f;
+    private MuscleState muscleState = MuscleState.FlexTransition;
+    private int muscleIndex = 0;
+
+    private enum MuscleState
     {
-        Flex,
-        Relax,
-        Next
-    }
-    enum Muscle
-    {
-        Biceps,
-        Quadriceps
-    }
-    MuscleState muscleState = MuscleState.Next;
-    Muscle muscle;
-    
-    IEnumerator HoldFlex()
-    {
-        yield return new WaitForSeconds(3);
-        muscleState = MuscleState.Relax;
-        startTime = Time.time;
+        FlexTransition,
+        FlexHold,
+        RelaxTransition,
+        RelaxHold
     }
 
-    IEnumerator Recharge()
+    private void AnimateMuscles(float transitionDuration, Color from, Color to)
     {
-        yield return new WaitForSeconds(3);
-        muscleState = MuscleState.Next;
-        startTime = Time.time;
-    }
-
-    float startTime;
-    void FlexAndRelax()
-    {
-        float t = (Time.time - startTime) / 3;
-        if (muscleState == MuscleState.Flex)
+        float transition = muscleStateTimer / transitionDuration;
+        foreach (Renderer rend in muscles[muscleIndex].GetComponentsInChildren<Renderer>())
         {
-            foreach (Renderer rend in muscles[(int)muscle].GetComponentsInChildren<Renderer>())
-                rend.material.color = Color.Lerp(Color.white, Color.red, t);
-
-            if (t >= 1)
-                StartCoroutine(HoldFlex());
-        }
-        if (muscleState == MuscleState.Relax)
-        {
-            foreach (Renderer rend in muscles[(int)muscle].GetComponentsInChildren<Renderer>())
-                rend.material.color = Color.Lerp(Color.red, Color.white, t);
-
-            if (t >= 1)
-                StartCoroutine(Recharge());
+            rend.material.color = Color.Lerp(from, to, transition);
         }
     }
-    void StartFlex()
+
+    private void UpdateMuscleState()
     {
-        Array values = Enum.GetValues(typeof(Muscle));
-        System.Random random = new System.Random();
-        if (muscleState == MuscleState.Next)
+        muscleStateTimer += Time.deltaTime;
+
+        switch (muscleState)
         {
-            muscle = (Muscle)values.GetValue(random.Next(values.Length));
-            muscleState = MuscleState.Flex;
-            startTime = Time.time;
+            case MuscleState.FlexTransition:
+                AnimateMuscles(flexTranstitionDuration, Color.white, Color.red);
+                if(muscleStateTimer >= flexTranstitionDuration)
+                {
+                    muscleStateTimer = 0f;
+                    muscleState = MuscleState.FlexHold;
+                }
+                break;
+            case MuscleState.FlexHold:
+                if (muscleStateTimer >= flexHoldDuration)
+                {
+                    muscleStateTimer = 0f;
+                    muscleState = MuscleState.RelaxTransition;
+                }
+                break;
+            case MuscleState.RelaxTransition:
+                AnimateMuscles(relaxTransitionDuration, Color.red, Color.white);
+                if (muscleStateTimer >= relaxTransitionDuration)
+                {
+                    muscleStateTimer = 0f;
+                    muscleState = MuscleState.RelaxHold;
+                }
+                break;
+            case MuscleState.RelaxHold:
+                if (muscleStateTimer >= relaxHoldDuration)
+                {
+                    muscleStateTimer = 0f;
+                    muscleState = MuscleState.FlexTransition;
+                    muscleIndex = (muscleIndex + 1) % muscles.Count;
+                }
+                break;
         }
-        FlexAndRelax();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        StartFlex();        
+        UpdateMuscleState();        
     }
 }
