@@ -15,6 +15,6 @@ public class SpinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        zombieTransform.Rotate(new Vector3(0, 100 * Time.deltaTime, 0));
+        zombieTransform.Rotate(new Vector3(0, 1000 * Time.deltaTime, 0));
     }
 }

@@ -12,6 +12,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
     public float flexHoldDuration = 2f;
     public float relaxTransitionDuration = 0.5f;
     public float relaxHoldDuration = 2f;
+    public float alpha = 0.4f;
 
     private float muscleStateTimer = 0f;
     private MuscleState muscleState = MuscleState.FlexTransition;
@@ -41,7 +42,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
         switch (muscleState)
         {
             case MuscleState.FlexTransition:
-                AnimateMuscles(flexTranstitionDuration, Color.white, Color.red);
+                AnimateMuscles(flexTranstitionDuration, new Color(1f,1f,1f, alpha), new Color(1f, 0f, 0f, 1f));
                 if(muscleStateTimer >= flexTranstitionDuration)
                 {
                     muscleStateTimer = 0f;
@@ -56,7 +57,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
                 }
                 break;
             case MuscleState.RelaxTransition:
-                AnimateMuscles(relaxTransitionDuration, Color.red, Color.white);
+                AnimateMuscles(relaxTransitionDuration, new Color(1f, 0f, 0f, 1f), new Color(1f, 1f, 1f, alpha));
                 if (muscleStateTimer >= relaxTransitionDuration)
                 {
                     muscleStateTimer = 0f;
