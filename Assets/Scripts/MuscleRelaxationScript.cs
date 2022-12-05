@@ -12,11 +12,11 @@ public class MuscleRelaxationScript : ExerciseBaseScript
     public float flexHoldDuration = 2f;
     public float relaxTransitionDuration = 0.5f;
     public float relaxHoldDuration = 2f;
-    public float alpha = 0.4f;
 
     private float muscleStateTimer = 0f;
     private MuscleState muscleState = MuscleState.FlexTransition;
     private int muscleIndex = 0;
+    [SerializeField] private float alpha = 0.4f;
 
     private enum MuscleState
     {
