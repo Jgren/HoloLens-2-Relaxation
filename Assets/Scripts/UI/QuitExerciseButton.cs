@@ -16,7 +16,7 @@ public class QuitExerciseButton : MonoBehaviour
     {
         if(this.enabled)
         {
-            userInterface.quitExercise = true;
+            //userInterface.quitExercise = true;
             this.enabled = false;
         }
     }

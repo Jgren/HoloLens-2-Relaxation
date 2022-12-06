@@ -4,32 +4,58 @@ using UnityEngine;
 
 public class UIHandler : MonoBehaviour
 {
-    public bool quitExercise = false;
-    public bool startExercise = false;
+    private static UIHandler instance = null;
+    public static UIHandler Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public List<ExerciseBaseScript> exercises;
     public GameObject mainMenu;
     public GameObject exerciseMenu;
 
-    // Start is called before the first frame update
-    void Start()
+    private ExerciseBaseScript activeExercise = null;
+    private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
+    
+    private void ToggleMenus(bool activateMainMenu)
     {
-        mainMenu.SetActive(true);
-        exerciseMenu.SetActive(false);
+        mainMenu.SetActive(activateMainMenu);
+        exerciseMenu.SetActive(!activateMainMenu);
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if(quitExercise)
+        for(int i=0; i<exercises.Count; i++)
         {
-            exerciseMenu.SetActive(false);
-            mainMenu.SetActive(true);
-            quitExercise= false;
+            nameToExercise.Add(exercises[i].name, exercises[i]);
         }
-        if(startExercise)
+
+        ToggleMenus(true);
+    }
+    public void StartExercise(string exerciseName)
+    {
+        if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))
         {
-            exerciseMenu.SetActive(true);
-            mainMenu.SetActive(false);
-            startExercise= false;
+            exercise.gameObject.SetActive(true);
+            activeExercise = exercise;
+
+            ToggleMenus(false);
+        }
+    }
+    public void QuitActiveExercise()
+    {
+        if(activeExercise != null)
+        {
+            activeExercise.gameObject.SetActive(false);
+            activeExercise = null;
+
+            ToggleMenus(true);
         }
     }
 }

@@ -16,7 +16,7 @@ public class ExerciseButton : MonoBehaviour
     {
         if(this.enabled)
         {
-            userInterface.startExercise = true;
+            //userInterface.startExercise = true;
             this.enabled = false;
         }
     }

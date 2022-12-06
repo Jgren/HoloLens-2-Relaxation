@@ -78,6 +78,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
 
     void Update()
     {
+        base.CheckTimer();
         UpdateMuscleState();        
     }
 }

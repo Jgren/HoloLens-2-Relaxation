@@ -85,6 +85,7 @@ public class BreathingScript : ExerciseBaseScript
 
     private void Update()
     {
+        base.CheckTimer();
         UpdateBreathState();
     }
 }
