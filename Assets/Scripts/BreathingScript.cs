@@ -8,6 +8,7 @@ public class BreathingScript : ExerciseBaseScript
     public Animator animationController;
     public ParticleSystem airParticlesIn;
     public ParticleSystem airParticlesOut;
+    public Material lungMaterial;
     public float inhaleTransitionDuration;
     public float inhaleHoldDuration;
     public float exhaleTransitionDuration;
@@ -32,6 +33,7 @@ public class BreathingScript : ExerciseBaseScript
             transition = 1f - transition;
         }
         animationController.SetFloat("Expanded", transition);
+        lungMaterial.SetFloat("_Expanded", transition);
     }
 
     public override void OnExit()

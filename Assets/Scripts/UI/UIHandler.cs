@@ -26,6 +26,7 @@ public class UIHandler : MonoBehaviour
     public float maxDuration = 600f;
     public PinchSlider durationSlider;
     public TextMeshPro durationSliderText;
+    public TextMeshPro exerciseTimerText;
 
     private ExerciseBaseScript activeExercise = null;
     private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
@@ -46,6 +47,17 @@ public class UIHandler : MonoBehaviour
         ToggleMenus(true);
         UpdateDuration();
     }
+
+    private void Update()
+    {
+        if(activeExercise != null)
+        {
+            string timeElapsed = Mathf.FloorToInt(activeExercise.TimeElapsed).ToString();
+            string duration = Mathf.FloorToInt(activeExercise.duration).ToString();
+            exerciseTimerText.text = "Time: " + timeElapsed + "/" + duration;
+        }
+    }
+
     public void StartExercise(string exerciseName)
     {
         if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))

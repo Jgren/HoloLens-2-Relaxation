@@ -6,6 +6,14 @@ public class ExerciseBaseScript : MonoBehaviour
 {
     public float duration;
     private float timer = 0f;
+    
+    public float TimeElapsed
+    {
+        get
+        {
+            return timer;
+        }
+    }
 
     private void OnEnable()
     {
