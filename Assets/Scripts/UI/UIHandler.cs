@@ -26,11 +26,13 @@ public class UIHandler : MonoBehaviour
     public float maxDuration = 600f;
     public PinchSlider durationSlider;
     public TextMeshPro durationSliderText;
-    public TextMeshPro exerciseTimerText;
+    public Transform exerciseProgressionBar;
 
     private ExerciseBaseScript activeExercise = null;
     private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
     private float exerciseDuration = 0f;
+    private Vector3 initProgressionBarScale;
+    private Vector3 initProgressionBarPos;
     
     private void ToggleMenus(bool activateMainMenu)
     {
@@ -44,6 +46,9 @@ public class UIHandler : MonoBehaviour
             nameToExercise.Add(exercises[i].name, exercises[i]);
         }
 
+        initProgressionBarScale = exerciseProgressionBar.localScale;
+        initProgressionBarPos = exerciseProgressionBar.localPosition;
+
         ToggleMenus(true);
         UpdateDuration();
     }
@@ -52,9 +57,10 @@ public class UIHandler : MonoBehaviour
     {
         if(activeExercise != null)
         {
-            string timeElapsed = Mathf.FloorToInt(activeExercise.TimeElapsed).ToString();
-            string duration = Mathf.FloorToInt(activeExercise.duration).ToString();
-            exerciseTimerText.text = "Time: " + timeElapsed + "/" + duration;
+            float scaleX = activeExercise.TimeElapsed / activeExercise.duration * initProgressionBarScale.x;
+            float posX = -initProgressionBarScale.x * 0.5f + scaleX * 0.5f;
+            exerciseProgressionBar.localScale = new Vector3(scaleX, initProgressionBarScale.y, initProgressionBarScale.z);
+            exerciseProgressionBar.localPosition = new Vector3(posX, initProgressionBarPos.x, initProgressionBarPos.z);
         }
     }
 

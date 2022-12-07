@@ -9,6 +9,8 @@ public class BreathingScript : ExerciseBaseScript
     public ParticleSystem airParticlesIn;
     public ParticleSystem airParticlesOut;
     public Material lungMaterial;
+    public AudioSource inhaleSound;
+    public AudioSource exhaleSound;
     public float inhaleTransitionDuration;
     public float inhaleHoldDuration;
     public float exhaleTransitionDuration;
@@ -32,6 +34,7 @@ public class BreathingScript : ExerciseBaseScript
         {
             transition = 1f - transition;
         }
+
         animationController.SetFloat("Expanded", transition);
         lungMaterial.SetFloat("_Expanded", transition);
     }
@@ -49,9 +52,11 @@ public class BreathingScript : ExerciseBaseScript
         switch (breathState)
         {
             case BreathState.InhaleTransition:
-                if (!airParticlesIn.isPlaying)
+                if (!inhaleSound.isPlaying)// first time
                 {
                     airParticlesIn.Play();
+                    inhaleSound.pitch = inhaleSound.clip.length / inhaleTransitionDuration;
+                    inhaleSound.Play();
                 }
                 AnimateLungs(inhaleTransitionDuration, true);
                 if(breathStateTimer >= inhaleTransitionDuration)
@@ -59,6 +64,7 @@ public class BreathingScript : ExerciseBaseScript
                     breathStateTimer = 0f;
                     breathState = BreathState.InhaleHold;
                     airParticlesIn.Stop();
+                    inhaleSound.Stop();
                 }
                 break;
             case BreathState.InhaleHold:
@@ -69,9 +75,11 @@ public class BreathingScript : ExerciseBaseScript
                 }
                 break;
             case BreathState.ExhaleTransition:
-                if (!airParticlesOut.isPlaying)
+                if (!exhaleSound.isPlaying) // first time
                 {
                     airParticlesOut.Play();
+                    exhaleSound.pitch = exhaleSound.clip.length / exhaleTransitionDuration;
+                    exhaleSound.Play();
                 }
                 AnimateLungs(exhaleTransitionDuration, false);
                 if(breathStateTimer >= exhaleTransitionDuration)
@@ -79,6 +87,7 @@ public class BreathingScript : ExerciseBaseScript
                     breathStateTimer = 0f;
                     breathState = BreathState.ExhaleHold;
                     airParticlesOut.Stop();
+                    exhaleSound.Stop();
                 }
                 break;
             case BreathState.ExhaleHold:
