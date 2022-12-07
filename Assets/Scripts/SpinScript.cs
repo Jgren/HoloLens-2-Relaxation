@@ -5,16 +5,10 @@ using UnityEngine;
 
 public class SpinScript : MonoBehaviour
 {
-    public Transform zombieTransform;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public Transform transform;
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        zombieTransform.Rotate(new Vector3(0, 1000 * Time.deltaTime, 0));
+        transform.Rotate(new Vector3(0, 1000 * Time.deltaTime, 0));
     }
 }

@@ -3599,6 +3599,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5996755051758210148, guid: 95b062013364c94488eff7c764d4f943, type: 3}
+      propertyPath: m_DrawTreesAndFoliage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996755051758210148, guid: 95b062013364c94488eff7c764d4f943, type: 3}
+      propertyPath: m_PreserveTreePrototypeLayers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5996755051758210150, guid: 95b062013364c94488eff7c764d4f943, type: 3}
       propertyPath: m_Name
       value: Terrain
