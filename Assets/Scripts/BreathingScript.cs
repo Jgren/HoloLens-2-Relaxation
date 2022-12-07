@@ -34,6 +34,12 @@ public class BreathingScript : ExerciseBaseScript
         animationController.SetFloat("Expanded", transition);
     }
 
+    public override void OnExit()
+    {
+        breathStateTimer = 0f;
+        breathState = BreathState.InhaleTransition;
+    }
+
     void UpdateBreathState()
     {
         breathStateTimer += Time.deltaTime;

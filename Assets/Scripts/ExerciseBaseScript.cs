@@ -11,6 +11,12 @@ public class ExerciseBaseScript : MonoBehaviour
     {
         timer = 0f;
     }
+
+    public virtual void OnExit()
+    {
+        
+    }
+
     protected void CheckTimer()
     {
         timer += Time.deltaTime;

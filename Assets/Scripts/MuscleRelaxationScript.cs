@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class MuscleRelaxationScript : ExerciseBaseScript
 {
-    public List<GameObject> muscles;
+    public List<MusclePair> muscles;
     public float flexTranstitionDuration = 0.5f;
     public float flexHoldDuration = 2f;
     public float relaxTransitionDuration = 0.5f;
@@ -16,7 +17,6 @@ public class MuscleRelaxationScript : ExerciseBaseScript
     private float muscleStateTimer = 0f;
     private MuscleState muscleState = MuscleState.FlexTransition;
     private int muscleIndex = 0;
-    [SerializeField] private float alpha = 0.4f;
 
     private enum MuscleState
     {
@@ -26,13 +26,29 @@ public class MuscleRelaxationScript : ExerciseBaseScript
         RelaxHold
     }
 
+    [System.Serializable]
+    public struct MusclePair
+    {
+        public GameObject left;
+        public GameObject right;
+    }
+
+    public override void OnExit()
+    {
+        muscleStateTimer = 0f;
+        AnimateMuscles(1f, new Color(1f,1f,1f), new Color(1f,0f,0f));
+        muscleState = MuscleState.FlexTransition;
+        muscleIndex = 0;
+    }
+
     private void AnimateMuscles(float transitionDuration, Color from, Color to)
     {
         float transition = muscleStateTimer / transitionDuration;
-        foreach (Renderer rend in muscles[muscleIndex].GetComponentsInChildren<Renderer>())
-        {
-            rend.material.color = Color.Lerp(from, to, transition);
-        }
+        MusclePair pair = muscles[muscleIndex];
+        Color lerpedColor = Color.Lerp(from, to, transition);
+
+        pair.left.GetComponent<Renderer>().material.color = lerpedColor;
+        pair.right.GetComponent<Renderer>().material.color = lerpedColor;
     }
 
     private void UpdateMuscleState()
@@ -42,7 +58,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
         switch (muscleState)
         {
             case MuscleState.FlexTransition:
-                AnimateMuscles(flexTranstitionDuration, new Color(1f,1f,1f, alpha), new Color(1f, 0f, 0f, 1f));
+                AnimateMuscles(flexTranstitionDuration, new Color(1f,1f,1f), new Color(1f, 0f, 0f));
                 if(muscleStateTimer >= flexTranstitionDuration)
                 {
                     muscleStateTimer = 0f;
@@ -57,7 +73,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
                 }
                 break;
             case MuscleState.RelaxTransition:
-                AnimateMuscles(relaxTransitionDuration, new Color(1f, 0f, 0f, 1f), new Color(1f, 1f, 1f, alpha));
+                AnimateMuscles(relaxTransitionDuration, new Color(1f, 0f, 0), new Color(1f, 1f, 1f));
                 if (muscleStateTimer >= relaxTransitionDuration)
                 {
                     muscleStateTimer = 0f;

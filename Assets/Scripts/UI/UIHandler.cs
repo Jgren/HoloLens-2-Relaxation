@@ -1,5 +1,7 @@
+using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIHandler : MonoBehaviour
@@ -20,9 +22,14 @@ public class UIHandler : MonoBehaviour
     public List<ExerciseBaseScript> exercises;
     public GameObject mainMenu;
     public GameObject exerciseMenu;
+    public float minDuration = 100f;
+    public float maxDuration = 600f;
+    public PinchSlider durationSlider;
+    public TextMeshPro durationSliderText;
 
     private ExerciseBaseScript activeExercise = null;
     private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
+    private float exerciseDuration = 0f;
     
     private void ToggleMenus(bool activateMainMenu)
     {
@@ -37,11 +44,13 @@ public class UIHandler : MonoBehaviour
         }
 
         ToggleMenus(true);
+        UpdateDuration();
     }
     public void StartExercise(string exerciseName)
     {
         if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))
         {
+            exercise.duration = exerciseDuration;
             exercise.gameObject.SetActive(true);
             activeExercise = exercise;
 
@@ -52,10 +61,17 @@ public class UIHandler : MonoBehaviour
     {
         if(activeExercise != null)
         {
+            activeExercise.OnExit();
             activeExercise.gameObject.SetActive(false);
             activeExercise = null;
 
             ToggleMenus(true);
         }
+    }
+
+    public void UpdateDuration()
+    {
+        exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
+        durationSliderText.text = "Duration: "+Mathf.FloorToInt(exerciseDuration).ToString();
     }
 }
