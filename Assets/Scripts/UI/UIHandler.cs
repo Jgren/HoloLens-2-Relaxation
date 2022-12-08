@@ -31,13 +31,14 @@ public class UIHandler : MonoBehaviour
     public TextMeshPro durationSliderText;
     public Transform exerciseProgressionBar;
     public TextMeshPro instructionText;
+    
+    [HideInInspector] public float exerciseDuration = 0f;
 
 
     private string activeExerciseName;
     private ExerciseBaseScript activeExercise = null;
     private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
     private Dictionary<string, GameObject> nameToInstructionMenu = new Dictionary<string, GameObject>();
-    private float exerciseDuration = 0f;
     private Vector3 initProgressionBarScale;
     private Vector3 initProgressionBarPos;
     
