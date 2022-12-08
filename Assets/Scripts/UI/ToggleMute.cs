@@ -4,26 +4,52 @@ using UnityEngine;
 
 public class ToggleMute : MonoBehaviour
 {
-    public GameObject gameObject;
-    // Start is called before the first frame update
-    void Start()
+    public AudioClip summerBirds;
+    public AudioClip rainAndBirds;
+    public AudioClip beachWaves;
+
+    public AudioSource source;
+
+    private enum TrackState
     {
-        
+        mute,
+        summerBirds,
+        rainAndBirds,
+        beachWaves
+    }
+    private TrackState trackState = TrackState.mute;
+
+    private void Start()
+    {
+        source.loop = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CycleTrack()
     {
-        if (gameObject.GetComponent<AudioSource>() != null)
+        switch (trackState)
         {
-            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource.volume == 0)
-            {
-                audioSource.volume = 1;
-            }
-            else
-                audioSource.volume = 0;
+            case TrackState.mute:
+                trackState = TrackState.summerBirds;
+                source.volume = 1;
+                source.clip = summerBirds;
+                source.Play();
+                break;
+            case TrackState.summerBirds:
+                trackState = TrackState.rainAndBirds;
+                source.volume = 1;
+                source.clip = rainAndBirds;
+                source.Play();
+                break;
+            case TrackState.rainAndBirds:
+                trackState = TrackState.beachWaves;
+                source.volume = 1;
+                source.clip = beachWaves;
+                source.Play();
+                break;
+            case TrackState.beachWaves:
+                trackState = TrackState.mute;
+                source.volume = 0;
+                break;
         }
-        this.enabled = false;
     }
 }

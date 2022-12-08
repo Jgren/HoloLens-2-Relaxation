@@ -402,6 +402,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 170099371908151319, guid: aecda1b4d5142ad4ab095d9a158a36dc, type: 3}
   m_PrefabInstance: {fileID: 1831810865}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &197952097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
+  m_PrefabInstance: {fileID: 599455553274840820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dba2031532d4b744a179c70b942d8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &212144691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +1855,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: eb7220f51c374e94db26d484098d1d9a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
   Loop: 1
@@ -3348,10 +3359,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI (Final maybe)
       objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 197952097}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CycleTrack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CycleTrack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleMute, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ToggleMute, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071723, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 1203472657}
+    - target: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: beachWaves
+      value: 
+      objectReference: {fileID: 8300000, guid: bbeb167315651aa48a9dc6d21544f330, type: 3}
     - target: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1203472656}
+    - target: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: summerBirds
+      value: 
+      objectReference: {fileID: 8300000, guid: eb7220f51c374e94db26d484098d1d9a, type: 3}
+    - target: {fileID: 7819433089103071735, guid: a159e1540cd183a418027042f4951be4, type: 3}
+      propertyPath: rainAndBirds
+      value: 
+      objectReference: {fileID: 8300000, guid: 62d4c7004b080bd4b920332a3a457fb5, type: 3}
     - target: {fileID: 7819433090456230086, guid: a159e1540cd183a418027042f4951be4, type: 3}
       propertyPath: gameObject
       value: 
