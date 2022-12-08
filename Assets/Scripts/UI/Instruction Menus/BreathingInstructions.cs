@@ -11,7 +11,7 @@ public class BreathingInstructions : InstructionMenu
     public BreathingScript breathingScript;
 
 
-    private float inhaleDuration = 5f;
+    private float inhaleDuration = 3f;
     private float minInhale = 3f;
     private float maxInhale = 7f;
     public PinchSlider inhaleDurationSlider;
@@ -38,19 +38,12 @@ public class BreathingInstructions : InstructionMenu
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void UpdateExerciseDuration()
-    {
-        exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
-        durationSliderText.text = "Duration: " + Mathf.FloorToInt(exerciseDuration).ToString();
     }
 
     public void UpdateInhaleDuration()

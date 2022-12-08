@@ -9,6 +9,7 @@ public class InstructionMenu : MonoBehaviour
 {
     public GameObject startPage;
     public GameObject settingsPage;
+    public UIHandler uIHandler;
 
     public float exerciseDuration;
     public float minDuration = 100f;
@@ -48,5 +49,9 @@ public class InstructionMenu : MonoBehaviour
         }
     }
 
-
+    public void UpdateExerciseDuration()
+    {
+        exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
+        durationSliderText.text = "Duration: " + Mathf.FloorToInt(exerciseDuration).ToString();
+    }
 }
