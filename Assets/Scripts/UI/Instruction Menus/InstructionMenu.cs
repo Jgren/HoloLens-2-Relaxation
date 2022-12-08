@@ -9,7 +9,6 @@ public class InstructionMenu : MonoBehaviour
 {
     public GameObject startPage;
     public GameObject settingsPage;
-    public UIHandler uIHandler;
 
     public float exerciseDuration;
     public float minDuration = 100f;
