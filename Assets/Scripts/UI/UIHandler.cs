@@ -30,7 +30,6 @@ public class UIHandler : MonoBehaviour
     public PinchSlider durationSlider;
     public TextMeshPro durationSliderText;
     public Transform exerciseProgressionBar;
-    public TextMeshPro exerciseTimerText;
     public TextMeshPro instructionText;
 
 
