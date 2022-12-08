@@ -83,7 +83,7 @@ public class BreathingInstructions : InstructionMenu
         breathingScript.inhaleHoldDuration = inhaleHoldDuration;
         breathingScript.exhaleTransitionDuration = exhaleDuration;
         breathingScript.exhaleHoldDuration = exhaleHoldDuration;
-        UIHandler.Instance.exerciseDuration = exerciseDuration;
-        UIHandler.Instance.StartExercise();
+        uIHandler.exerciseDuration = exerciseDuration;
+        uIHandler.StartExercise();
     }
 }
