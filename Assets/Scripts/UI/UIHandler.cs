@@ -25,20 +25,20 @@ public class UIHandler : MonoBehaviour
     public GameObject mainMenu;
     public GameObject exerciseMenu;
     public GameObject instructionMenu;
-    public float minDuration = 100f;
-    public float maxDuration = 600f;
-    public PinchSlider durationSlider;
-    public TextMeshPro durationSliderText;
+    //public float minDuration = 100f;
+    //public float maxDuration = 600f;
+    //public PinchSlider durationSlider;
+    //public TextMeshPro durationSliderText;
     public Transform exerciseProgressionBar;
     public TextMeshPro exerciseTimerText;
-    public TextMeshPro instructionText;
+    //public TextMeshPro instructionText;
 
 
     private string activeExerciseName;
     private ExerciseBaseScript activeExercise = null;
     private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
     private Dictionary<string, GameObject> nameToInstructionMenu = new Dictionary<string, GameObject>();
-    private float exerciseDuration = 0f;
+    public float exerciseDuration = 0f;
     private Vector3 initProgressionBarScale;
     private Vector3 initProgressionBarPos;
     
@@ -104,6 +104,8 @@ public class UIHandler : MonoBehaviour
         if(nameToInstructionMenu.TryGetValue(activeExerciseName, out GameObject exerciseInstructionMenu))
         {
             ToggleMenus("instruction");
+
+
             exerciseInstructionMenu.SetActive(true);
         }
     }
@@ -134,7 +136,7 @@ public class UIHandler : MonoBehaviour
     {
         if (nameToExercise.TryGetValue(activeExerciseName, out ExerciseBaseScript exercise))
         {
-            exercise.duration = exerciseDuration;
+            //exercise.duration = exerciseDuration;
             exercise.gameObject.SetActive(true);
             activeExercise = exercise;
 
@@ -157,13 +159,13 @@ public class UIHandler : MonoBehaviour
 
     public void UpdateDuration()
     {
-        exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
-        durationSliderText.text = "Duration: "+Mathf.FloorToInt(exerciseDuration).ToString();
+        //exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
+        //durationSliderText.text = "Duration: "+Mathf.FloorToInt(exerciseDuration).ToString();
     }
 
-    public void SetInstructionText(string inputText)
-    {
-        instructionText.text = inputText.Replace("\\n", Environment.NewLine);
-    }
+    //public void SetInstructionText(string inputText)
+    //{
+    //    instructionText.text = inputText.Replace("\\n", Environment.NewLine);
+    //}
 
 }
