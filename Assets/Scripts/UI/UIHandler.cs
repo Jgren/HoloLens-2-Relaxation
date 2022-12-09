@@ -20,18 +20,20 @@ public class UIHandler : MonoBehaviour
         instance = this;
     }
 
+    private enum MenuState
+    {
+        main,
+        instruction,
+        exercise,
+    }
+
     public List<ExerciseBaseScript> exercises;
     public List<GameObject> instructionMenus;
     public GameObject mainMenu;
     public GameObject exerciseMenu;
     public GameObject instructionMenu;
-    //public float minDuration = 100f;
-    //public float maxDuration = 600f;
-    //public PinchSlider durationSlider;
-    //public TextMeshPro durationSliderText;
     public Transform exerciseProgressionBar;
-    //public TextMeshPro exerciseTimerText;
-    //public TextMeshPro instructionText;
+
 
 
     private string activeExerciseName;
@@ -48,21 +50,21 @@ public class UIHandler : MonoBehaviour
         exerciseMenu.SetActive(!activateMainMenu);
     }
 
-    private void ToggleMenus(string menuToOpen)
+    private void ToggleMenus(MenuState menuToOpen)
     {
         switch(menuToOpen)
         {
-            case "main":
+            case MenuState.main:
                 mainMenu.SetActive(true);
                 CloseInstructions();
                 exerciseMenu.SetActive(false);
                 break;
-            case "instruction":
+            case MenuState.instruction:
                 mainMenu.SetActive(false);
                 instructionMenu.SetActive(true);
                 exerciseMenu.SetActive(false);
                 break;
-            case "exercise":
+            case MenuState.exercise:
                 mainMenu.SetActive(false);
                 CloseInstructions();
                 exerciseMenu.SetActive(true);
@@ -81,10 +83,7 @@ public class UIHandler : MonoBehaviour
 
         initProgressionBarScale = exerciseProgressionBar.localScale;
         initProgressionBarPos = exerciseProgressionBar.localPosition;
-
-        //ToggleMenus(true);
-        ToggleMenus("main");
-        UpdateDuration();
+        ToggleMenus(MenuState.main);
     }
 
     private void Update()
@@ -103,9 +102,7 @@ public class UIHandler : MonoBehaviour
         activeExerciseName = exerciseName;
         if(nameToInstructionMenu.TryGetValue(activeExerciseName, out GameObject exerciseInstructionMenu))
         {
-            ToggleMenus("instruction");
-
-
+            ToggleMenus(MenuState.instruction);
             exerciseInstructionMenu.SetActive(true);
         }
     }
@@ -119,29 +116,13 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-
-    //public void StartExercise(string exerciseName)
-    //{
-    //    if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))
-    //    {
-    //        exercise.duration = exerciseDuration;
-    //        exercise.gameObject.SetActive(true);
-    //        activeExercise = exercise;
-
-    //        //ToggleMenus(false);
-    //        ToggleMenus("exercise");
-    //    }
-    //}
     public void StartExercise()
     {
         if (nameToExercise.TryGetValue(activeExerciseName, out ExerciseBaseScript exercise))
         {
-            //exercise.duration = exerciseDuration;
             exercise.gameObject.SetActive(true);
             activeExercise = exercise;
-
-            //ToggleMenus(false);
-            ToggleMenus("exercise");
+            ToggleMenus(MenuState.exercise);
         }
     }
     public void QuitActiveExercise()
@@ -151,21 +132,7 @@ public class UIHandler : MonoBehaviour
             activeExercise.OnExit();
             activeExercise.gameObject.SetActive(false);
             activeExercise = null;
-
-            //ToggleMenus(true);
-            ToggleMenus("main");
+            ToggleMenus(MenuState.main);
         }
     }
-
-    public void UpdateDuration()
-    {
-        //exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
-        //durationSliderText.text = "Duration: "+Mathf.FloorToInt(exerciseDuration).ToString();
-    }
-
-    //public void SetInstructionText(string inputText)
-    //{
-    //    instructionText.text = inputText.Replace("\\n", Environment.NewLine);
-    //}
-
 }
