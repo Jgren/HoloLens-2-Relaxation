@@ -72,11 +72,13 @@ public class BreathingInstructions : InstructionMenu
 
     public void StartExercise()
     {
+        //UIHandler.Instance.exerciseDuration = exerciseDuration;
+        UIHandler.Instance.StartExercise();
+
         breathingScript.inhaleTransitionDuration = inhaleDuration;
         breathingScript.inhaleHoldDuration = inhaleHoldDuration;
         breathingScript.exhaleTransitionDuration = exhaleDuration;
         breathingScript.exhaleHoldDuration = exhaleHoldDuration;
-        UIHandler.Instance.exerciseDuration = exerciseDuration;
-        UIHandler.Instance.StartExercise();
+        breathingScript.duration = exerciseDuration;
     }
 }

@@ -120,18 +120,18 @@ public class UIHandler : MonoBehaviour
     }
 
 
-    public void StartExercise(string exerciseName)
-    {
-        if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))
-        {
-            exercise.duration = exerciseDuration;
-            exercise.gameObject.SetActive(true);
-            activeExercise = exercise;
+    //public void StartExercise(string exerciseName)
+    //{
+    //    if (nameToExercise.TryGetValue(exerciseName, out ExerciseBaseScript exercise))
+    //    {
+    //        exercise.duration = exerciseDuration;
+    //        exercise.gameObject.SetActive(true);
+    //        activeExercise = exercise;
 
-            //ToggleMenus(false);
-            ToggleMenus("exercise");
-        }
-    }
+    //        //ToggleMenus(false);
+    //        ToggleMenus("exercise");
+    //    }
+    //}
     public void StartExercise()
     {
         if (nameToExercise.TryGetValue(activeExerciseName, out ExerciseBaseScript exercise))

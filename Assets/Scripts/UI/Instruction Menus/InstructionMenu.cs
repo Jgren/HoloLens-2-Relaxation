@@ -9,9 +9,8 @@ public class InstructionMenu : MonoBehaviour
 {
     public GameObject startPage;
     public GameObject settingsPage;
-    public UIHandler uIHandler;
 
-    public float exerciseDuration;
+    public float exerciseDuration = 100f;
     public float minDuration = 100f;
     public float maxDuration = 600f;
     public PinchSlider durationSlider;

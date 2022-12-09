@@ -9,6 +9,7 @@ using UnityEngine;
 public class MuscleRelaxationScript : ExerciseBaseScript
 {
     public List<MusclePair> muscles;
+    public MusclePair restOfBody;
     public float flexTranstitionDuration = 0.5f;
     public float flexHoldDuration = 2f;
     public float relaxTransitionDuration = 0.5f;
@@ -37,6 +38,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
     {
         muscleStateTimer = 0f;
         AnimateMuscles(1f, new Color(1f,1f,1f), new Color(1f,0f,0f));
+        SetBodyRelaxation(1f);
         muscleState = MuscleState.FlexTransition;
         muscleIndex = 0;
     }
@@ -49,6 +51,19 @@ public class MuscleRelaxationScript : ExerciseBaseScript
 
         pair.left.GetComponent<Renderer>().material.color = lerpedColor;
         pair.right.GetComponent<Renderer>().material.color = lerpedColor;
+    }
+
+    private void SetBodyRelaxation(float transitionDuration)
+    {
+        float progression = Mathf.Sin(muscleStateTimer / transitionDuration * Mathf.PI);
+        for(int i=0; i<muscles.Count; i++)
+        {
+            muscles[i].left.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
+            muscles[i].right.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
+        }
+
+        restOfBody.left.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
+        restOfBody.right.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
     }
 
     private void UpdateMuscleState()
@@ -81,6 +96,7 @@ public class MuscleRelaxationScript : ExerciseBaseScript
                 }
                 break;
             case MuscleState.RelaxHold:
+                SetBodyRelaxation(relaxHoldDuration);
                 if (muscleStateTimer >= relaxHoldDuration)
                 {
                     muscleStateTimer = 0f;

@@ -46,9 +46,11 @@ public class MuscleRelaxationInstructions : InstructionMenu
 
     public void StartExercise()
     {
+        //UIHandler.Instance.exerciseDuration = exerciseDuration;
+        UIHandler.Instance.StartExercise();
+
         muscleRelaxationScript.flexHoldDuration = flexDuration;
         muscleRelaxationScript.relaxHoldDuration = relaxDuration;
-        uIHandler.exerciseDuration = exerciseDuration;
-        uIHandler.StartExercise();
+        muscleRelaxationScript.duration = exerciseDuration;
     }
 }
