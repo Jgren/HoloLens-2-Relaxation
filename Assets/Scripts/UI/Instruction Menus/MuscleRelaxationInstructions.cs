@@ -6,7 +6,7 @@ using TMPro;
 
 public class MuscleRelaxationInstructions : InstructionMenu
 {
-    public MuscleRelaxationScript muscleRelaxationScript;
+    public MuscleRelaxation muscleRelaxationExercise;
 
     private float flexDuration = 10f;
     private float minFlexDur = 5f;
@@ -19,18 +19,6 @@ public class MuscleRelaxationInstructions : InstructionMenu
     private float maxRelaxDur = 20f;
     public PinchSlider relaxDurationSlider;
     public TextMeshPro relaxDurationSliderText;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateFlexDuration()
     {
@@ -46,11 +34,10 @@ public class MuscleRelaxationInstructions : InstructionMenu
 
     public void StartExercise()
     {
-        //UIHandler.Instance.exerciseDuration = exerciseDuration;
-        UIHandler.Instance.StartExercise();
+        muscleRelaxationExercise.flexHoldDuration = flexDuration;
+        muscleRelaxationExercise.relaxHoldDuration = relaxDuration;
+        muscleRelaxationExercise.duration = exerciseDuration;
 
-        muscleRelaxationScript.flexHoldDuration = flexDuration;
-        muscleRelaxationScript.relaxHoldDuration = relaxDuration;
-        muscleRelaxationScript.duration = exerciseDuration;
+        UIHandler.Instance.StartExercise(muscleRelaxationExercise);
     }
 }

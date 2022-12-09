@@ -4,24 +4,10 @@ using UnityEngine;
 
 public class ToggleButton : MonoBehaviour
 {
-    public GameObject gameObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject target;
 
-    // Update is called once per frame
-    void Update()
+    public void Toggle()
     {
-        if (gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            gameObject.SetActive(true);
-        }
-        this.enabled = false;
+        target.SetActive(!target.activeSelf);
     }
 }

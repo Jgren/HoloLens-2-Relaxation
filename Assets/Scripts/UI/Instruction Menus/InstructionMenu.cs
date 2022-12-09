@@ -16,37 +16,30 @@ public class InstructionMenu : MonoBehaviour
     public PinchSlider durationSlider;
     public TextMeshPro durationSliderText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        startPage.SetActive(true);
-        settingsPage.SetActive(false);
-    }
+    //void Start()
+    //{
+    //    startPage.SetActive(true);
+    //    settingsPage.SetActive(false);
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //public void CloseMenu()
+    //{
+    //    startPage.SetActive(false);
+    //    settingsPage.SetActive(false);
+    //}
 
-    public void CloseMenu()
-    {
-        startPage.SetActive(false);
-        settingsPage.SetActive(false);
-    }
-
-    public void SwitchMenu()
-    {
-        if (startPage.activeSelf) { 
-            startPage.SetActive(false);
-            settingsPage.SetActive(true);
-        }
-        else if(settingsPage.activeSelf)
-        {
-            startPage.SetActive(true);
-            settingsPage.SetActive(false);
-        }
-    }
+    //public void SwitchMenu()
+    //{
+    //    if (startPage.activeSelf) { 
+    //        startPage.SetActive(false);
+    //        settingsPage.SetActive(true);
+    //    }
+    //    else if(settingsPage.activeSelf)
+    //    {
+    //        startPage.SetActive(true);
+    //        settingsPage.SetActive(false);
+    //    }
+    //}
 
     public void UpdateExerciseDuration()
     {

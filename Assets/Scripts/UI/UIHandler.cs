@@ -20,70 +20,30 @@ public class UIHandler : MonoBehaviour
         instance = this;
     }
 
-    private enum MenuState
-    {
-        main,
-        instruction,
-        exercise,
-    }
-
-    public List<ExerciseBaseScript> exercises;
-    public List<GameObject> instructionMenus;
+    public List<Exercise> exercises;
+    public List<InstructionMenu> instructionMenus;
     public GameObject mainMenu;
+    public GameObject instructionMenuWrapper;
     public GameObject exerciseMenu;
-    public GameObject instructionMenu;
     public Transform exerciseProgressionBar;
 
-
-
-    private string activeExerciseName;
-    private ExerciseBaseScript activeExercise = null;
-    private Dictionary<string, ExerciseBaseScript> nameToExercise = new Dictionary<string, ExerciseBaseScript>();
-    private Dictionary<string, GameObject> nameToInstructionMenu = new Dictionary<string, GameObject>();
-    public float exerciseDuration = 0f;
+    private Exercise activeExercise = null;
+    private InstructionMenu activeInstructionMenu = null;
+    private Dictionary<string, InstructionMenu> nameToInstructionMenu = new Dictionary<string, InstructionMenu>();
     private Vector3 initProgressionBarScale;
     private Vector3 initProgressionBarPos;
-    
-    private void ToggleMenus(bool activateMainMenu)
-    {
-        mainMenu.SetActive(activateMainMenu);
-        exerciseMenu.SetActive(!activateMainMenu);
-    }
-
-    private void ToggleMenus(MenuState menuToOpen)
-    {
-        switch(menuToOpen)
-        {
-            case MenuState.main:
-                mainMenu.SetActive(true);
-                CloseInstructions();
-                exerciseMenu.SetActive(false);
-                break;
-            case MenuState.instruction:
-                mainMenu.SetActive(false);
-                instructionMenu.SetActive(true);
-                exerciseMenu.SetActive(false);
-                break;
-            case MenuState.exercise:
-                mainMenu.SetActive(false);
-                CloseInstructions();
-                exerciseMenu.SetActive(true);
-                break;
-        }
-    }
 
     private void Start()
     {
-        for(int i=0; i<exercises.Count; i++)
+        for(int i=0; i<instructionMenus.Count; i++)
         {
-            nameToExercise.Add(exercises[i].name, exercises[i]);
             nameToInstructionMenu.Add(exercises[i].name, instructionMenus[i]);
         }
 
 
         initProgressionBarScale = exerciseProgressionBar.localScale;
         initProgressionBarPos = exerciseProgressionBar.localPosition;
-        ToggleMenus(MenuState.main);
+        mainMenu.SetActive(true);
     }
 
     private void Update()
@@ -97,42 +57,54 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    public void OpenInstructions(string exerciseName)
+    public void OpenInstructionMenu(string exerciseName)
     {
-        activeExerciseName = exerciseName;
-        if(nameToInstructionMenu.TryGetValue(activeExerciseName, out GameObject exerciseInstructionMenu))
+        if(nameToInstructionMenu.TryGetValue(exerciseName, out InstructionMenu selectedInstructionMenu))
         {
-            ToggleMenus(MenuState.instruction);
-            exerciseInstructionMenu.SetActive(true);
+            activeInstructionMenu = selectedInstructionMenu;
+            mainMenu.SetActive(false);
+            instructionMenuWrapper.SetActive(true);
+            selectedInstructionMenu.gameObject.SetActive(true);
         }
     }
 
-    private void CloseInstructions()
+    public void ToggleInstructionMenuSettingsPage()
     {
-        instructionMenu.SetActive(false);
-        if (nameToInstructionMenu.TryGetValue(activeExerciseName, out GameObject exerciseInstructionMenu))
+        if(activeInstructionMenu != null)
         {
-            exerciseInstructionMenu.SetActive(false);
+            bool isOnStartPage = activeInstructionMenu.startPage.activeSelf;
+            activeInstructionMenu.startPage.SetActive(!isOnStartPage);
+            activeInstructionMenu.settingsPage.SetActive(isOnStartPage);
         }
     }
 
-    public void StartExercise()
+    private void CloseActiveInstructionMenu()
     {
-        if (nameToExercise.TryGetValue(activeExerciseName, out ExerciseBaseScript exercise))
+        if(activeInstructionMenu != null)
         {
-            exercise.gameObject.SetActive(true);
-            activeExercise = exercise;
-            ToggleMenus(MenuState.exercise);
+            activeInstructionMenu.gameObject.SetActive(false);
+            activeInstructionMenu = null;
         }
     }
-    public void QuitActiveExercise()
+
+    public void StartExercise(Exercise selectedExercise)
+    {
+        activeExercise = selectedExercise;
+        CloseActiveInstructionMenu();
+        instructionMenuWrapper.SetActive(false);
+        selectedExercise.gameObject.SetActive(true);
+        exerciseMenu.SetActive(true);
+    }
+
+    public void CloseActiveExercise()
     {
         if(activeExercise != null)
         {
             activeExercise.OnExit();
             activeExercise.gameObject.SetActive(false);
             activeExercise = null;
-            ToggleMenus(MenuState.main);
+            exerciseMenu.SetActive(false);
+            mainMenu.SetActive(true);
         }
     }
 }

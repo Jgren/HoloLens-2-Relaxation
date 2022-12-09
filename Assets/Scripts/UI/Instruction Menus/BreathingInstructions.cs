@@ -8,8 +8,7 @@ using TMPro;
 public class BreathingInstructions : InstructionMenu
 {
 
-    public BreathingScript breathingScript;
-
+    public Breathing breathingExercise;
 
     private float inhaleDuration = 3f;
     private float minInhale = 3f;
@@ -34,17 +33,6 @@ public class BreathingInstructions : InstructionMenu
     private float maxExhaleHold = 5f;
     public PinchSlider exhaleHoldSlider;
     public TextMeshPro exhaleHoldSliderText;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateInhaleDuration()
     {
@@ -72,13 +60,12 @@ public class BreathingInstructions : InstructionMenu
 
     public void StartExercise()
     {
-        //UIHandler.Instance.exerciseDuration = exerciseDuration;
-        UIHandler.Instance.StartExercise();
+        breathingExercise.inhaleTransitionDuration = inhaleDuration;
+        breathingExercise.inhaleHoldDuration = inhaleHoldDuration;
+        breathingExercise.exhaleTransitionDuration = exhaleDuration;
+        breathingExercise.exhaleHoldDuration = exhaleHoldDuration;
+        breathingExercise.duration = exerciseDuration;
 
-        breathingScript.inhaleTransitionDuration = inhaleDuration;
-        breathingScript.inhaleHoldDuration = inhaleHoldDuration;
-        breathingScript.exhaleTransitionDuration = exhaleDuration;
-        breathingScript.exhaleHoldDuration = exhaleHoldDuration;
-        breathingScript.duration = exerciseDuration;
+        UIHandler.Instance.StartExercise(breathingExercise);
     }
 }
