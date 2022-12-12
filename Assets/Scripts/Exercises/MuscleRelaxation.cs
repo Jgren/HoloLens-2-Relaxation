@@ -21,10 +21,10 @@ public class MuscleRelaxation : Exercise
 
     private enum MuscleState
     {
-        FlexTransition,
-        FlexHold,
-        RelaxTransition,
-        RelaxHold
+        FlexTransition, // The process of tensing the muscle from 0% to 100%
+        FlexHold, // Holding the tensed position
+        RelaxTransition, //The process of releasing the tension in the muscle from 100% to 0%
+        RelaxHold // Relaxing your body and switching what muscle to tense
     }
 
     [System.Serializable]
@@ -34,6 +34,7 @@ public class MuscleRelaxation : Exercise
         public GameObject right;
     }
 
+    // Called when exiting the exercise
     public override void OnExit()
     {
         muscleStateTimer = 0f;
@@ -45,9 +46,10 @@ public class MuscleRelaxation : Exercise
 
     private void AnimateMuscles(float transitionDuration, Color from, Color to)
     {
+        // Animate the muscles by making the switch colors; white to red when tensing, red to white when releasing tension
         float transition = muscleStateTimer / transitionDuration;
         MusclePair pair = muscles[muscleIndex];
-        Color lerpedColor = Color.Lerp(from, to, transition);
+        Color lerpedColor = Color.Lerp(from, to, transition); // "transition" is a value 0-1 which determins the mix of colors. 0 is 100% the color "from" and 1 is 100% the color "to".
 
         pair.left.GetComponent<Renderer>().material.color = lerpedColor;
         pair.right.GetComponent<Renderer>().material.color = lerpedColor;
@@ -56,6 +58,7 @@ public class MuscleRelaxation : Exercise
     private void SetBodyRelaxation(float transitionDuration)
     {
         float progression = Mathf.Sin(muscleStateTimer / transitionDuration * Mathf.PI);
+        //Set the variable _RelaxProgression for both characters
         for(int i=0; i<muscles.Count; i++)
         {
             muscles[i].left.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
@@ -69,7 +72,7 @@ public class MuscleRelaxation : Exercise
     private void UpdateMuscleState()
     {
         muscleStateTimer += Time.deltaTime;
-
+        // State machine to distinguish what part of the program is active
         switch (muscleState)
         {
             case MuscleState.FlexTransition:
