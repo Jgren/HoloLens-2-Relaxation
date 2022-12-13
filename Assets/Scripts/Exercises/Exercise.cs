@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Exercise : MonoBehaviour
 {
-    public float duration;
+    [HideInInspector] public float duration;
     private float timer = 0f;
     
     public float TimeElapsed

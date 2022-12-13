@@ -8278,20 +8278,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPage: {fileID: 12853062177441766}
   settingsPage: {fileID: 12853061701969537}
-  exerciseDuration: 100
-  minDuration: 100
-  maxDuration: 600
-  durationSlider: {fileID: 12853062440807247}
-  durationSliderText: {fileID: 12853063064994124}
+  exerciseDurationInfo:
+    duration: 120
+    minDuration: 60
+    maxDuration: 300
+    durationSlider: {fileID: 12853062440807247}
+    durationSliderText: {fileID: 12853063064994124}
   breathingExercise: {fileID: 380046648}
-  inhaleDurationSlider: {fileID: 611390504897949010}
-  inhaleDurationSliderText: {fileID: 7819433089357734740}
-  inhaleHoldSlider: {fileID: 611390505507408915}
-  inhaleHoldSliderText: {fileID: 7819433089599442741}
-  exhaleDurationSlider: {fileID: 611390505611373520}
-  exhaleDurationSliderText: {fileID: 7819433090571722379}
-  exhaleHoldSlider: {fileID: 611390505470514097}
-  exhaleHoldSliderText: {fileID: 7819433090325702995}
+  inhaleDurationInfo:
+    duration: 4
+    minDuration: 1
+    maxDuration: 7
+    durationSlider: {fileID: 611390504897949010}
+    durationSliderText: {fileID: 7819433089357734740}
+  inhaleHoldDurationInfo:
+    duration: 3
+    minDuration: 2
+    maxDuration: 5
+    durationSlider: {fileID: 611390505507408915}
+    durationSliderText: {fileID: 7819433089599442741}
+  exhaleDurationInfo:
+    duration: 4
+    minDuration: 1
+    maxDuration: 7
+    durationSlider: {fileID: 611390505611373520}
+    durationSliderText: {fileID: 7819433090571722379}
+  exhaleHoldDurationInfo:
+    duration: 3
+    minDuration: 2
+    maxDuration: 5
+    durationSlider: {fileID: 611390505470514097}
+    durationSliderText: {fileID: 7819433090325702995}
 --- !u!4 &611390503768083105
 Transform:
   m_ObjectHideFlags: 0
@@ -33508,16 +33525,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPage: {fileID: 7819433088712018335}
   settingsPage: {fileID: 7819433088781707512}
-  exerciseDuration: 100
-  minDuration: 100
-  maxDuration: 600
-  durationSlider: {fileID: 7819433090594252086}
-  durationSliderText: {fileID: 7819433089329583354}
+  exerciseDurationInfo:
+    duration: 100
+    minDuration: 100
+    maxDuration: 300
+    durationSlider: {fileID: 7819433090594252086}
+    durationSliderText: {fileID: 7819433089329583354}
   muscleRelaxationExercise: {fileID: 173699230}
-  flexDurationSlider: {fileID: 611390504476673402}
-  flexDurationSliderText: {fileID: 7819433089559682530}
-  relaxDurationSlider: {fileID: 611390505415474457}
-  relaxDurationSliderText: {fileID: 7819433089412016429}
+  flexDurationInfo:
+    duration: 5
+    minDuration: 3
+    maxDuration: 10
+    durationSlider: {fileID: 611390504476673402}
+    durationSliderText: {fileID: 7819433089559682530}
+  relaxDurationInfo:
+    duration: 5
+    minDuration: 3
+    maxDuration: 10
+    durationSlider: {fileID: 611390505415474457}
+    durationSliderText: {fileID: 7819433089412016429}
 --- !u!4 &8295493005826631210
 Transform:
   m_ObjectHideFlags: 0

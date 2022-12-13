@@ -11,10 +11,10 @@ public class Breathing : Exercise
     public Material lungMaterial;
     public AudioSource inhaleSound;
     public AudioSource exhaleSound;
-    public float inhaleTransitionDuration;
-    public float inhaleHoldDuration;
-    public float exhaleTransitionDuration;
-    public float exhaleHoldDuration;
+    [HideInInspector] public float inhaleTransitionDuration;
+    [HideInInspector] public float inhaleHoldDuration;
+    [HideInInspector] public float exhaleTransitionDuration;
+    [HideInInspector] public float exhaleHoldDuration;
 
     private float breathStateTimer = 0f;
     private BreathState breathState = BreathState.InhaleTransition;
@@ -45,7 +45,7 @@ public class Breathing : Exercise
         breathState = BreathState.InhaleTransition;
     }
 
-    void UpdateBreathState()
+    private void UpdateBreathState()
     {
         breathStateTimer += Time.deltaTime;
 

@@ -10,10 +10,10 @@ public class MuscleRelaxation : Exercise
 {
     public List<MusclePair> muscles;
     public MusclePair restOfBody;
-    public float flexTranstitionDuration = 0.5f;
-    public float flexHoldDuration = 2f;
-    public float relaxTransitionDuration = 0.5f;
-    public float relaxHoldDuration = 2f;
+    private float flexTranstitionDuration = 0.5f;
+    [HideInInspector] public float flexHoldDuration = 2f;
+    private float relaxTransitionDuration = 0.5f;
+    [HideInInspector] public float relaxHoldDuration = 2f;
 
     private float muscleStateTimer = 0f;
     private MuscleState muscleState = MuscleState.FlexTransition;

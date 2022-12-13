@@ -8,36 +8,25 @@ public class MuscleRelaxationInstructions : InstructionMenu
 {
     public MuscleRelaxation muscleRelaxationExercise;
 
-    private float flexDuration = 10f;
-    private float minFlexDur = 5f;
-    private float maxFlexDur = 20f;
-    public PinchSlider flexDurationSlider;
-    public TextMeshPro flexDurationSliderText;
-
-    private float relaxDuration = 10f;
-    private float minRelaxDur = 5f;
-    private float maxRelaxDur = 20f;
-    public PinchSlider relaxDurationSlider;
-    public TextMeshPro relaxDurationSliderText;
+    public DurationInfo flexDurationInfo;
+    public DurationInfo relaxDurationInfo;
 
     public void UpdateFlexDuration()
     {
-        flexDuration = Mathf.Lerp(minFlexDur, maxFlexDur, flexDurationSlider.SliderValue);
-        flexDurationSliderText.text = "Flex Duration: " + Mathf.FloorToInt(flexDuration).ToString() + " s";
+        flexDurationInfo.UpdateDuration("Flex duration");
     }
 
     public void UpdateRelaxDuration()
     {
-        relaxDuration = Mathf.Lerp(minRelaxDur, maxRelaxDur, relaxDurationSlider.SliderValue);
-        relaxDurationSliderText.text = "Relax Duration: " + Mathf.FloorToInt(relaxDuration).ToString() + " s";
+        relaxDurationInfo.UpdateDuration("Relax duration");
     }
 
     public void StartExercise()
     {
         // transfer slider values to exercise instance
-        muscleRelaxationExercise.flexHoldDuration = flexDuration;
-        muscleRelaxationExercise.relaxHoldDuration = relaxDuration;
-        muscleRelaxationExercise.duration = exerciseDuration;
+        muscleRelaxationExercise.flexHoldDuration = flexDurationInfo.duration;
+        muscleRelaxationExercise.relaxHoldDuration = relaxDurationInfo.duration;
+        muscleRelaxationExercise.duration = exerciseDurationInfo.duration;
 
         UIHandler.Instance.StartExercise(muscleRelaxationExercise);
     }

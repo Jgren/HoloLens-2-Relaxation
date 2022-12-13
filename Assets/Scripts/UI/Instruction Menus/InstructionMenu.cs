@@ -10,15 +10,26 @@ public class InstructionMenu : MonoBehaviour
     public GameObject startPage;
     public GameObject settingsPage;
 
-    public float exerciseDuration = 100f;
-    public float minDuration = 100f;
-    public float maxDuration = 600f;
-    public PinchSlider durationSlider;
-    public TextMeshPro durationSliderText;
+    [System.Serializable]
+    public struct DurationInfo
+    {
+        public float duration;
+        public float minDuration;
+        public float maxDuration;
+        public PinchSlider durationSlider;
+        public TextMeshPro durationSliderText;
+
+        public void UpdateDuration(string description)
+        {
+            duration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
+            durationSliderText.text = description + " duration: " + Mathf.FloorToInt(duration).ToString() + " s";
+        }
+    }
+
+    public DurationInfo exerciseDurationInfo;
 
     public void UpdateExerciseDuration()
     {
-        exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
-        durationSliderText.text = "Duration: " + Mathf.FloorToInt(exerciseDuration).ToString() + " s";
+        exerciseDurationInfo.UpdateDuration("Duration");
     }
 }
