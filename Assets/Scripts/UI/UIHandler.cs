@@ -7,6 +7,7 @@ using System;
 
 public class UIHandler : MonoBehaviour
 {
+    // singleton
     private static UIHandler instance = null;
     public static UIHandler Instance
     {
@@ -40,7 +41,6 @@ public class UIHandler : MonoBehaviour
             nameToInstructionMenu.Add(exercises[i].name, instructionMenus[i]);
         }
 
-
         initProgressionBarScale = exerciseProgressionBar.localScale;
         initProgressionBarPos = exerciseProgressionBar.localPosition;
         mainMenu.SetActive(true);
@@ -48,6 +48,7 @@ public class UIHandler : MonoBehaviour
 
     private void Update()
     {
+        // update progression bar size
         if(activeExercise != null)
         {
             float scaleX = activeExercise.TimeElapsed / activeExercise.duration * initProgressionBarScale.x;

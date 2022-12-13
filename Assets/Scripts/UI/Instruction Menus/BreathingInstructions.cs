@@ -37,29 +37,30 @@ public class BreathingInstructions : InstructionMenu
     public void UpdateInhaleDuration()
     {
         inhaleDuration = Mathf.Lerp(minInhale, maxInhale, inhaleDurationSlider.SliderValue);
-        inhaleDurationSliderText.text = "Inhale duration: " + Mathf.FloorToInt(inhaleDuration).ToString();
+        inhaleDurationSliderText.text = "Inhale duration: " + Mathf.FloorToInt(inhaleDuration).ToString() + " s";
     }
 
     public void UpdateInhaleHoldDuration()
     {
         inhaleHoldDuration = Mathf.Lerp(minInhaleHold, maxInhaleHold, inhaleHoldSlider.SliderValue);
-        inhaleHoldSliderText.text = "Inhale hold duration: " + Mathf.FloorToInt(inhaleHoldDuration).ToString();
+        inhaleHoldSliderText.text = "Inhale hold duration: " + Mathf.FloorToInt(inhaleHoldDuration).ToString() + " s";
     }
 
     public void UpdateExhaleDuration() 
     {
         exhaleDuration = Mathf.Lerp(minExhale, maxExhale, exhaleDurationSlider.SliderValue);
-        exhaleDurationSliderText.text = "Exhale duration: " + Mathf.FloorToInt(exhaleDuration).ToString();
+        exhaleDurationSliderText.text = "Exhale duration: " + Mathf.FloorToInt(exhaleDuration).ToString() + " s";
     }
 
     public void UpdateExhaleHoldDuration()
     {
         exhaleHoldDuration = Mathf.Lerp(minExhaleHold, maxExhaleHold, exhaleHoldSlider.SliderValue);
-        exhaleHoldSliderText.text = "Exhale hold duration: " + Mathf.FloorToInt(exhaleHoldDuration).ToString();
+        exhaleHoldSliderText.text = "Exhale hold duration: " + Mathf.FloorToInt(exhaleHoldDuration).ToString() + " s";
     }
 
     public void StartExercise()
     {
+        // transfer slider values to exercise instance
         breathingExercise.inhaleTransitionDuration = inhaleDuration;
         breathingExercise.inhaleHoldDuration = inhaleHoldDuration;
         breathingExercise.exhaleTransitionDuration = exhaleDuration;

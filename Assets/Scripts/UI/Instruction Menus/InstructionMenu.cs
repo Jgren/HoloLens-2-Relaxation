@@ -16,34 +16,9 @@ public class InstructionMenu : MonoBehaviour
     public PinchSlider durationSlider;
     public TextMeshPro durationSliderText;
 
-    //void Start()
-    //{
-    //    startPage.SetActive(true);
-    //    settingsPage.SetActive(false);
-    //}
-
-    //public void CloseMenu()
-    //{
-    //    startPage.SetActive(false);
-    //    settingsPage.SetActive(false);
-    //}
-
-    //public void SwitchMenu()
-    //{
-    //    if (startPage.activeSelf) { 
-    //        startPage.SetActive(false);
-    //        settingsPage.SetActive(true);
-    //    }
-    //    else if(settingsPage.activeSelf)
-    //    {
-    //        startPage.SetActive(true);
-    //        settingsPage.SetActive(false);
-    //    }
-    //}
-
     public void UpdateExerciseDuration()
     {
         exerciseDuration = Mathf.Lerp(minDuration, maxDuration, durationSlider.SliderValue);
-        durationSliderText.text = "Duration: " + Mathf.FloorToInt(exerciseDuration).ToString();
+        durationSliderText.text = "Duration: " + Mathf.FloorToInt(exerciseDuration).ToString() + " s";
     }
 }

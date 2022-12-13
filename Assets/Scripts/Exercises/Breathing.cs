@@ -49,16 +49,20 @@ public class Breathing : Exercise
     {
         breathStateTimer += Time.deltaTime;
 
+        // check breath state and perform different events for the different stages
         switch (breathState)
         {
             case BreathState.InhaleTransition:
-                if (!inhaleSound.isPlaying)// first time
+                // first time
+                if (!inhaleSound.isPlaying)
                 {
                     airParticlesIn.Play();
                     inhaleSound.pitch = inhaleSound.clip.length / inhaleTransitionDuration;
                     inhaleSound.Play();
                 }
+                // always
                 AnimateLungs(inhaleTransitionDuration, true);
+                // last time
                 if(breathStateTimer >= inhaleTransitionDuration)
                 {
                     breathStateTimer = 0f;
@@ -67,21 +71,27 @@ public class Breathing : Exercise
                     inhaleSound.Stop();
                 }
                 break;
+
             case BreathState.InhaleHold:
+                // last time
                 if(breathStateTimer >= inhaleHoldDuration)
                 {
                     breathStateTimer = 0f;
                     breathState = BreathState.ExhaleTransition;
                 }
                 break;
+
             case BreathState.ExhaleTransition:
-                if (!exhaleSound.isPlaying) // first time
+                // fist time
+                if (!exhaleSound.isPlaying)
                 {
                     airParticlesOut.Play();
                     exhaleSound.pitch = exhaleSound.clip.length / exhaleTransitionDuration;
                     exhaleSound.Play();
                 }
+                // always
                 AnimateLungs(exhaleTransitionDuration, false);
+                // last time
                 if(breathStateTimer >= exhaleTransitionDuration)
                 {
                     breathStateTimer = 0f;
@@ -90,7 +100,9 @@ public class Breathing : Exercise
                     exhaleSound.Stop();
                 }
                 break;
+
             case BreathState.ExhaleHold:
+                // last time
                 if (breathStateTimer >= exhaleHoldDuration)
                 {
                     breathStateTimer = 0f;

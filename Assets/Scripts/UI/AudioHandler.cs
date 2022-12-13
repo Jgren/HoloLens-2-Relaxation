@@ -24,6 +24,7 @@ public class AudioHandler : MonoBehaviour
 
     public void CycleTrack()
     {
+        // check current track and go to next
         switch (trackState)
         {
             case TrackState.Mute:

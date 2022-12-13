@@ -58,7 +58,7 @@ public class MuscleRelaxation : Exercise
     private void SetBodyRelaxation(float transitionDuration)
     {
         float progression = Mathf.Sin(muscleStateTimer / transitionDuration * Mathf.PI);
-        //Set the variable _RelaxProgression for both characters
+        //Set the shader variable _RelaxProgression for both characters
         for(int i=0; i<muscles.Count; i++)
         {
             muscles[i].left.GetComponent<Renderer>().material.SetFloat("_RelaxProgression", progression);
@@ -76,30 +76,40 @@ public class MuscleRelaxation : Exercise
         switch (muscleState)
         {
             case MuscleState.FlexTransition:
+                // always
                 AnimateMuscles(flexTranstitionDuration, new Color(1f,1f,1f), new Color(1f, 0f, 0f));
+                // last time
                 if(muscleStateTimer >= flexTranstitionDuration)
                 {
                     muscleStateTimer = 0f;
                     muscleState = MuscleState.FlexHold;
                 }
                 break;
+
             case MuscleState.FlexHold:
+                // last time
                 if (muscleStateTimer >= flexHoldDuration)
                 {
                     muscleStateTimer = 0f;
                     muscleState = MuscleState.RelaxTransition;
                 }
                 break;
+
             case MuscleState.RelaxTransition:
+                // always
                 AnimateMuscles(relaxTransitionDuration, new Color(1f, 0f, 0), new Color(1f, 1f, 1f));
+                // last time
                 if (muscleStateTimer >= relaxTransitionDuration)
                 {
                     muscleStateTimer = 0f;
                     muscleState = MuscleState.RelaxHold;
                 }
                 break;
+
             case MuscleState.RelaxHold:
+                // always
                 SetBodyRelaxation(relaxHoldDuration);
+                // last time
                 if (muscleStateTimer >= relaxHoldDuration)
                 {
                     muscleStateTimer = 0f;

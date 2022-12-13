@@ -23,17 +23,18 @@ public class MuscleRelaxationInstructions : InstructionMenu
     public void UpdateFlexDuration()
     {
         flexDuration = Mathf.Lerp(minFlexDur, maxFlexDur, flexDurationSlider.SliderValue);
-        flexDurationSliderText.text = "Flex Duration: " + Mathf.FloorToInt(flexDuration).ToString();
+        flexDurationSliderText.text = "Flex Duration: " + Mathf.FloorToInt(flexDuration).ToString() + " s";
     }
 
     public void UpdateRelaxDuration()
     {
         relaxDuration = Mathf.Lerp(minRelaxDur, maxRelaxDur, relaxDurationSlider.SliderValue);
-        relaxDurationSliderText.text = "Relax Duration: " + Mathf.FloorToInt(relaxDuration).ToString();
+        relaxDurationSliderText.text = "Relax Duration: " + Mathf.FloorToInt(relaxDuration).ToString() + " s";
     }
 
     public void StartExercise()
     {
+        // transfer slider values to exercise instance
         muscleRelaxationExercise.flexHoldDuration = flexDuration;
         muscleRelaxationExercise.relaxHoldDuration = relaxDuration;
         muscleRelaxationExercise.duration = exerciseDuration;
