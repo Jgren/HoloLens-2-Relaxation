@@ -3,7 +3,7 @@ Relaxation game for HoloLens 2
 
 How to setup Unity and Visual Studio for development, building and deployment:
 1. open Visual Studio Installer and add:
-  * Universal Windows Platform Development:
+  Universal Windows Platform Development:
     - USB Device Connectivity
     - C++ (v142) Universal Windows Platform tools
     - Windows 10 SDK (10.0.18362.0)
