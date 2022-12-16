@@ -6,7 +6,7 @@ Set Up:
 1. Open Visual Studio Installer and add:
   Universal Windows Platform Development:
     - USB Device Connectivity
-    - C++ (v142) Universal Windows Platform tools
+    - C++ (v143) Universal Windows Platform tools
     - Windows 10 SDK (10.0.18362.0)
 2. Open Unity Hub and download Unity version 2020.3.26f1
   Make sure that Universal Windows Platform Build Support is part of your Unity installation
@@ -21,7 +21,12 @@ Build:
 5. Build
 
 Deployment:
-1. Plug in your Hololens headset using USB
-2. 
+1. Ensure that your version of windows has Developer Mode turned on, as well as Device discovery (both settings found under Update & Security -> For developers)
+2. Plug in your Hololens headset using USB
+3. Open your built .sln file in Visual Studio
+  Make sure that the correct project is set as startup project
+4. Change deployment settings to "Release", "ARM64" & "Device"
+5. Deploy
+  If deployment errors occur, when asked to continue, press no. Then without changing any settings, try deploying again.
 
 Attributions for free-to-use assets can be found in the Attributions.txt file
