@@ -2,6 +2,7 @@
 Relaxation game for HoloLens 2
 
 How to setup Unity and Visual Studio for development, building and deployment:
+
 Set Up:
 1. Open Visual Studio Installer and add:
   Universal Windows Platform Development:
